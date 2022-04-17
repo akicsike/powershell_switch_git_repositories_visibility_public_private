@@ -2,7 +2,6 @@
 $Global:GITHUB_USER = ""
 $Global:GITHUB_TOKEN = ""
 $Global:REPOS_VISIBILITY_TYPE = "public" # which type of repos to convert: public or private
-$Global:SET_TO_PRIVATE = "true" # if REPOS_VISIBILITY_TYPE = "public" then value must be "true", if REPOS_VISIBILITY_TYPE = "private" then value must be "false"
 
 #start running
 [GitHub]::reposToPrivate()
@@ -14,6 +13,14 @@ class GitHub {
 
         $jsonStr = ""
         $pageNo = 1
+        
+        # if REPOS_VISIBILITY_TYPE = "public" then value must be "true", if REPOS_VISIBILITY_TYPE = "private" then value must be "false"
+        if ($Global:REPOS_VISIBILITY_TYPE -eq "public") {
+            $Global:SET_TO_PRIVATE = "true"
+        }
+        else {
+            $Global:SET_TO_PRIVATE = "false"
+        }
 
         Do {
         
